@@ -1,0 +1,62 @@
+ensure_tables: true
+bigtable:
+  table_prefix: promtable.
+  # project_id: 
+  # instance:
+
+replicas: 1
+
+deploymentStrategy: RollingUpdate
+
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 3
+  periodSeconds: 10
+  successThreshold: 1
+  tcpSocket:
+    port: 9202
+  timeoutSeconds: 1
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 3
+  periodSeconds: 10
+  successThreshold: 1
+  tcpSocket:
+    port: 9202
+  timeoutSeconds: 1
+
+image:
+  repository: gcr.io/pub-registry-chen-dev/promtable
+  tag: master
+  pullPolicy: IfNotPresent # Always
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 9202
+  annotations: {}
+  labels: {}
+
+resources: {}
+#  limits:
+#    cpu: 100m
+#    memory: 128Mi
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
+
+## Node labels for pod assignment
+## ref: https://kubernetes.io/docs/user-guide/node-selection/
+#
+nodeSelector: {}
+
+## Tolerations for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: []
+
+## Affinity for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}

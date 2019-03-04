@@ -1,0 +1,15 @@
+steps:
+- name: 'google/cloud-sdk:alpine'
+  entrypoint: sh
+  args:
+  - '-c'
+  - |
+    apk --update add tar ca-certificates curl bash; \
+    curl --keepalive-time 2 -fLsSv --retry 20 -Y 100000 -y 60 -o /tmp/$HELM_FILENAME https://storage.googleapis.com/kubernetes-helm/$HELM_FILENAME; \
+    tar -xvzf /tmp/$HELM_FILENAME -C /tmp; \
+    mv /tmp/linux-amd64/helm /bin/helm; \
+    rm -rf /tmp; \
+    helm init --client-only; \
+    ./scripts/helm-package.sh --sync-repo
+  env:
+  - 'HELM_FILENAME=helm-v2.12.0-linux-amd64.tar.gz'

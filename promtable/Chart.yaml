@@ -1,0 +1,13 @@
+apiVersion: v1
+name: promtable
+version: 0.0.1
+appVersion: 0.0.1
+kubeVersion: "^1.8.0-0"
+description: Prometheus Cloud Bigtable remote storage supports both write and read.
+home: https://github.com/uschen/promtable
+sources:
+  - https://github.com/uschen/promtable
+maintainers:
+  - name: Chen Liang
+    email: 1@chen.dev
+engine: gotpl
