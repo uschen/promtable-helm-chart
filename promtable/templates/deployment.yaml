@@ -7,13 +7,8 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   name: {{ template "promtable.fullname" . }}
-
-  annotations:
-{{- if .Values.metric.enable }}
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "9100"
-{{- end }}
 {{- with .Values.annotations }}
+  annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
@@ -33,8 +28,12 @@ spec:
       labels:
         app: {{ template "promtable.name" . }}
         release: {{ .Release.Name }}
-{{- with .Values.podAnnotations }}
       annotations:
+{{- if .Values.metric.enable }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9100"
+{{- end }}
+{{- with .Values.podAnnotations }}
 {{ toYaml . | indent 8 }}
 {{- end }}
     spec:
@@ -52,14 +51,14 @@ spec:
         readinessProbe:
 {{ toYaml .Values.readinessProbe | indent 10 }}
         ports:
-        - containerPort: 9202
-          name: http
-          protocol: TCP
-{{- if .Values.metric.enable -}}
-        - containerPort: 9100
-          name: prometheus
-          protocol: TCP
-{{- end -}}
+          - containerPort: 9202
+            name: http
+            protocol: TCP
+{{- if .Values.metric.enable }}
+          - containerPort: 9100
+            name: prometheus
+            protocol: TCP
+{{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
 {{- with .Values.nodeSelector }}
