@@ -4,6 +4,10 @@ bigtable:
   # project_id: 
   # instance:
 
+metric:
+  enable: true
+  # listen: 
+
 replicas: 1
 
 deploymentStrategy: RollingUpdate

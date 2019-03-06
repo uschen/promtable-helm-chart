@@ -7,8 +7,13 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   name: {{ template "promtable.fullname" . }}
-{{- with .Values.annotations }}
+
   annotations:
+{{- if .Values.metric.enable }}
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9100"
+{{- end }}
+{{- with .Values.annotations }}
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
@@ -50,6 +55,11 @@ spec:
         - containerPort: 9202
           name: http
           protocol: TCP
+{{- if .Values.metric.enable -}}
+        - containerPort: 9100
+          name: prometheus
+          protocol: TCP
+{{- end -}}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
 {{- with .Values.nodeSelector }}
