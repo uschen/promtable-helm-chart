@@ -43,6 +43,8 @@ spec:
         - --ensure-tables={{ .Values.ensure_tables }}
         - --bigtable.table_prefix={{ required "bigtable.table_prefix is required" .Values.bigtable.table_prefix }}
         - --bigtable.instance={{ required "bigtable.instance is required" .Values.bigtable.instance }}
+        - --metric.enable={{ default "false" .Values.metric.enable }}
+        - --hash-metric-name={{ default "false" .Values.hash_metric_rows }}
         name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}

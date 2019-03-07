@@ -8,6 +8,8 @@ metric:
   enable: true
   # listen: 
 
+hash_metric_rows: true
+
 replicas: 1
 
 deploymentStrategy: RollingUpdate
