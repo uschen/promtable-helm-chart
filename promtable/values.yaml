@@ -4,6 +4,12 @@ bigtable:
   # project_id: 
   # instance:
 
+enable_longterm_storage: false
+longterm_bigtable:
+  table_prefix: promtable.
+  # project_id: 
+  # instance:
+
 metric:
   enable: true
   # listen: 

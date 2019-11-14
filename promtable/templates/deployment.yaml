@@ -40,11 +40,17 @@ spec:
       containers:
       - args:
         - --bigtable.project_id={{ required "bigtable.project_id is required" .Values.bigtable.project_id }}
-        - --ensure-tables={{ .Values.ensure_tables }}
         - --bigtable.table_prefix={{ required "bigtable.table_prefix is required" .Values.bigtable.table_prefix }}
         - --bigtable.instance={{ required "bigtable.instance is required" .Values.bigtable.instance }}
+        - --ensure-tables={{ .Values.ensure_tables }}
         - --metric.enable={{ default "false" .Values.metric.enable }}
         - --hash-metric-name={{ default "false" .Values.hash_metric_rows }}
+        - --enable-longterm-storage={{ default "false" .Values.enable_longterm_storage }}
+{{- if .Values.enable_longterm_storage }}
+        - --longterm_bigtable.project_id={{ required "longterm_bigtable.project_id is required" .Values.longterm_bigtable.project_id }}
+        - --longterm_bigtable.table_prefix={{ required "longterm_bigtable.table_prefix is required" .Values.longterm_bigtable.table_prefix }}
+        - --longterm_bigtable.instance={{ required "longterm_bigtable.instance is required" .Values.longterm_bigtable.instance }}
+{{- end }}
         name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
