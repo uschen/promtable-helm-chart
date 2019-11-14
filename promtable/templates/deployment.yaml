@@ -42,6 +42,7 @@ spec:
         - --bigtable.project_id={{ required "bigtable.project_id is required" .Values.bigtable.project_id }}
         - --bigtable.table_prefix={{ required "bigtable.table_prefix is required" .Values.bigtable.table_prefix }}
         - --bigtable.instance={{ required "bigtable.instance is required" .Values.bigtable.instance }}
+        - --bigtable.expiration={{ .Values.bigtable.expiration }}
         - --ensure-tables={{ .Values.ensure_tables }}
         - --metric.enable={{ default "false" .Values.metric.enable }}
         - --hash-metric-name={{ default "false" .Values.hash_metric_rows }}
@@ -50,6 +51,7 @@ spec:
         - --longterm_bigtable.project_id={{ required "longterm_bigtable.project_id is required" .Values.longterm_bigtable.project_id }}
         - --longterm_bigtable.table_prefix={{ required "longterm_bigtable.table_prefix is required" .Values.longterm_bigtable.table_prefix }}
         - --longterm_bigtable.instance={{ required "longterm_bigtable.instance is required" .Values.longterm_bigtable.instance }}
+        - --longterm_bigtable.expiration={{ .Values.longterm_bigtable.expiration }}
 {{- end }}
         name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

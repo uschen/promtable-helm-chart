@@ -1,11 +1,13 @@
 ensure_tables: true
 bigtable:
   table_prefix: promtable.
+  # expiration: 30d
   # project_id: 
   # instance:
 
 enable_longterm_storage: false
 longterm_bigtable:
+  # expiration: 30d
   table_prefix: promtable.
   # project_id: 
   # instance:
