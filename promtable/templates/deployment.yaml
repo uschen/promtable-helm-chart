@@ -51,7 +51,7 @@ spec:
         - --longterm_bigtable.project_id={{ required "longterm_bigtable.project_id is required" .Values.longterm_bigtable.project_id }}
         - --longterm_bigtable.table_prefix={{ required "longterm_bigtable.table_prefix is required" .Values.longterm_bigtable.table_prefix }}
         - --longterm_bigtable.instance={{ required "longterm_bigtable.instance is required" .Values.longterm_bigtable.instance }}
-        - --longterm_bigtable.expiration={{ .Values.longterm_bigtable.expiration }}
+        - --longterm_bigtable.expiration={{ default "\"\"" .Values.longterm_bigtable.expiration }}
 {{- end }}
         name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
